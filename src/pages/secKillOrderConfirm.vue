@@ -190,7 +190,7 @@ export default{
      
     this.getAddressList();
     this.getCartList();
-    this.getCouponList();
+    //this.getCouponList();
   },
  
   methods:{
@@ -279,7 +279,7 @@ export default{
             this.$message.error('请选择一个产品');
             return;
         }
-       this.axios.post('/order/'+this.token+'/generateConfirmOrder',Qs.stringify({productId: this.id},{indices: false}),
+       this.axios.post('/order/miaosha/generateConfirmOrder',Qs.stringify({productId: this.id},{indices: false}),
                   {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then((res)=>{
                 this.cartList=res.cartPromotionItemList;
                 res.cartPromotionItemList.map((item)=>{
@@ -315,7 +315,7 @@ export default{
       }
       let arrIds=[];
       arrIds.push(this.id);
-     this.axios.post('/order/'+this.token+'/generateOrder',{
+     this.axios.post('/order/miaosha/generateOrder',{
                 itemIds: arrIds,
                 memberReceiveAddressId:item.id,
                 payType:1

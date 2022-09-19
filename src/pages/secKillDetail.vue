@@ -5,8 +5,7 @@
       <div class="container clearfix">
         <div class="swiper">
           <swiper :options="swiperOption">
-            <swiper-slide v-for="(item, index) of albumPics" :key="index"
-              ><img :src="item" alt="" />
+            <swiper-slide v-for="(item, index) of albumPics" :key="index"><img :src="item" alt="" />
             </swiper-slide>
             <!-- <swiper-slide><img src="/imgs/detail/phone-2.jpg" alt=""></swiper-slide> 
               <swiper-slide><img src="/imgs/detail/phone-3.jpg" alt=""></swiper-slide>
@@ -18,7 +17,7 @@
         <div class="content">
           <h2 class="item-title">{{ product.name }}</h2>
           <!-- <p class="item-info">相机全新升级 / 960帧超慢动作 / 手持超级夜景 / 全球首款双频GPS / 骁龙845处理器 / 红<br/>外人脸解锁 / AI变焦双摄 / 三星 AMOLED 屏</p> -->
-          <p class="item-info">{{ product.subTitle }}</p> 
+          <p class="item-info">{{ product.subTitle }}</p>
           <div class="item-price">{{ product.flashPromotionPrice }}元</div>
           <div class="line"></div>
           <!-- <div class="item-addr">
@@ -28,14 +27,9 @@
           </div> -->
           <div class="item-version clearfix">
             <h2>选择规格</h2>
-            <div
-              class="phone fl"
-              v-for="(item, index) of product.skuStockList"
-              :key="index"
-              :class="[ {checked: clicked == index},{disabled: (item.stock-item.lockStock)<=0} ]"
-              :skuId="item.id"
-              @click="handlerSkuid(item, index)"
-            >
+            <div class="phone fl" v-for="(item, index) of product.skuStockList" :key="index"
+              :class="[ {checked: clicked == index},{disabled: (item.stock-item.lockStock)<=0} ]" :skuId="item.id"
+              @click="handlerSkuid(item, index)">
               {{ item.sp1 + item.sp2 }}
             </div>
 
@@ -74,48 +68,34 @@
           <div class="item-total">
             <div class="phone-info clearfix">
               <div class="stock" v-if="clicked==null">
-                <i class="fa fa-exclamation-triangle f2" aria-hidden="true" ></i>
+                <i class="fa fa-exclamation-triangle f2" aria-hidden="true"></i>
                 请选择规格
               </div>
               <div class="fr" v-if="skuName" v-html="skuName"></div>
             </div>
-            <div class="phone-total" v-if="skuPrice>0">总计：{{ skuPrice }}元</div> 
+            <div class="phone-total" v-if="skuPrice>0">总计：{{ skuPrice }}元</div>
           </div>
-          <div class="btn-group">  
-            <!-- 
-              <div style="margin: 20px;font-size:24px">
-             <span>验证码:</span>  <input  type="text" name="verifyCode"  v-model="verifyCode"    style="width:80px;height:32px;margin: 20px;font-size:18px"  /> <img  v-bind:src="verifyCodeInfoUrl"     @click="refreshCode"  stype="width:80px;height:32px;margin: 20px;"/> 
-          </div> -->
+          <div class="btn-group">
+
+            <div style="margin: 20px;font-size:24px">
+              <span>验证码:</span> <input type="text" name="verifyCode" v-model="verifyCode" style="width:80px;height:32px;margin: 20px;font-size:18px" /> 
+              <img v-bind:src="verifyCodeInfoUrl" @click="refreshCode" stype="width:80px;height:32px;margin: 20px;" />
+            </div>
             <a href="javascript:;" class="btn btn-huge fl" @click="secKill">立即秒杀</a>
           </div>
 
           <div class="after-sale-info">
-            <span
-              ><a
-                href="javascript:void(0);"
-                v-if="serviceIds.includes('1')"
-                class="support"
-              >
+            <span><a href="javascript:void(0);" v-if="serviceIds.includes('1')" class="support">
                 <i class="fa fa-check-circle-o f2" aria-hidden="true"></i>
                 <em>无忧退货</em>
               </a>
             </span>
-            <span
-              ><a
-                href="javascript:void(0);"
-                v-if="serviceIds.includes('2')"
-                class="support"
-              >
+            <span><a href="javascript:void(0);" v-if="serviceIds.includes('2')" class="support">
                 <i class="fa fa-check-circle-o f2" aria-hidden="true"></i>
                 <em>快速退款</em>
               </a>
             </span>
-            <span
-              ><a
-                href="javascript:void(0);"
-                v-if="serviceIds.includes('3')"
-                class="support"
-              >
+            <span><a href="javascript:void(0);" v-if="serviceIds.includes('3')" class="support">
                 <i class="fa fa-check-circle-o f2" aria-hidden="true"></i>
                 <em>免费包邮</em>
               </a>
@@ -171,10 +151,10 @@ export default {
       albumPics: [],
       clicked: null,
       serviceIds: [],
-      skuPrice:0,
-      skuName:'', 
-      verifyCodeInfoUrl:"",
-      verifyCode:''
+      skuPrice: 0,
+      skuName: '',
+      verifyCodeInfoUrl: "",
+      verifyCode: ''
     };
   },
   components: {
@@ -192,7 +172,7 @@ export default {
       this.axios.get(`/pms/productInfo/${this.id}`).then((res) => {
         this.product = res;
 
-        this.albumPics =res.albumPics? res.albumPics.split(","):[];
+        this.albumPics = res.albumPics ? res.albumPics.split(",") : [];
         this.albumPics.unshift(res.pic);
         if (
           this.albumPics == null ||
@@ -205,45 +185,45 @@ export default {
         this.serviceIds = res.serviceIds.split(",");
       });
     },
-    secKill(){
+    secKill() {
 
-      
-         this.$router.push({path:"/secKillOrderConfirm/"+this.id+"/miaosha"});
+
+      // this.$router.push({ path: "/secKillOrderConfirm/" + this.id + "/miaosha" });
       // 开始验证验证码
-      // let vefifyCodeUrl='/order/token?productId='+this.id+"&verifyCode="+this.verifyCode;
-      // this.axios.get(vefifyCodeUrl).then((res)=>{
-      //    this.$router.push({path:"/secKillOrderConfirm/"+this.id+"/"+res});
-      // });
-       
+      let vefifyCodeUrl='/order/token?productId='+this.id+"&verifyCode="+this.verifyCode;
+      this.axios.get(vefifyCodeUrl).then((res)=>{
+         this.$router.push({path:"/secKillOrderConfirm/"+this.id+"/"+res});
+      });
+
     },
- 
-    getVerifyCodeInfo(){
-         this.axios.get("/order/verifyCode?productId="+this.id).then((res)=>{
-          this.verifyCodeInfoUrl = 'data:image/png;base64,'+res;
-         });   
+
+    getVerifyCodeInfo() {
+      this.axios.get("/order/verifyCode?productId=" + this.id).then((res) => {
+        this.verifyCodeInfoUrl = 'data:image/png;base64,' + res;
+      });
     },
-    refreshCode(){
-        this.getVerifyCodeInfo();
+    refreshCode() {
+      this.getVerifyCodeInfo();
     },
     handlerSkuid(item, index) {
-      if((item.stock-item.lockStock)<=0){
+      if ((item.stock - item.lockStock) <= 0) {
         this.$message.warning("库存不足，请选择其他规格");
         return;
       }
       // 重复点击则失效
       if (this.clicked == index) {
         this.clicked = null;
-        this.skuId = 0; 
+        this.skuId = 0;
         this.albumPics = this.product.albumPics.split(",");
-        this.albumPics.unshift(this.product.pic); 
-        this.skuName='';
-        this.skuPrice=0;
+        this.albumPics.unshift(this.product.pic);
+        this.skuName = '';
+        this.skuPrice = 0;
       } else {
         this.clicked = index;
         this.skuId = item.id;
-        if(item.pic) this.albumPics = [item.pic];
-        this.skuName=this.product.name+ item.sp1+item.sp2;
-        this.skuPrice=this.product.flashPromotionPrice;
+        if (item.pic) this.albumPics = [item.pic];
+        this.skuName = this.product.name + item.sp1 + item.sp2;
+        this.skuPrice = this.product.flashPromotionPrice;
       }
     },
   },
@@ -252,39 +232,47 @@ export default {
 <style lang="scss">
 @import "./../assets/scss/config.scss";
 @import "./../assets/scss/mixin.scss";
+
 .detail {
   .stock {
     margin-top: 15px;
     color: #ff6700;
   }
+
   .wrapper {
     .swiper {
       float: left;
       width: 642px;
       height: 617px;
       margin-top: 5px;
-      .swiper-container{
+
+      .swiper-container {
         height: 617px;
       }
+
       img {
         width: 100%;
         height: 100%;
       }
     }
+
     .content {
       float: right;
       width: 575px;
       height: auto;
+
       .item-title {
         font-size: 28px;
         padding-top: 30px;
         padding-bottom: 16px;
         height: 66px;
       }
+
       .item-info {
         font-size: 14px;
         height: 36px;
       }
+
       .delivery {
         font-size: 16px;
         color: #ff6700;
@@ -292,10 +280,12 @@ export default {
         margin-bottom: 14px;
         height: 15px;
       }
+
       .item-price {
         font-size: 20px;
         color: #ff6700;
         height: 19px;
+
         .del {
           font-size: 16px;
           color: #999999;
@@ -303,12 +293,15 @@ export default {
           text-decoration: line-through;
         }
       }
+
       .btn-group {
         width: 100%;
         height: 54px;
       }
+
       .after-sale-info {
         margin: 20px 0px;
+
         a {
           display: inline-block;
           margin-right: 55px;
@@ -318,12 +311,14 @@ export default {
           white-space: nowrap;
           color: #b0b0b0;
         }
+
         i {
           font-size: 24px;
           display: inline-block;
           font-style: normal;
           vertical-align: middle;
         }
+
         em {
           font-style: normal;
           display: inline-block;
@@ -332,12 +327,14 @@ export default {
           font-size: 16px;
         }
       }
+
       .line {
         height: 0;
         margin-top: 25px;
         margin-bottom: 28px;
         border-top: 1px solid #e5e5e5;
       }
+
       .item-addr {
         height: 108px;
         background-color: #fafafa;
@@ -348,28 +345,34 @@ export default {
         font-size: 14px;
         line-height: 14px;
         position: relative;
+
         .icon-loc {
           position: absolute;
           top: 27px;
           left: 34px;
           @include bgImg(20px, 20px, "/imgs/detail/icon-loc.png");
         }
+
         .addr {
           color: #666666;
         }
+
         .stock {
           margin-top: 15px;
           color: #ff6700;
         }
       }
+
       .item-version,
       .item-color {
         margin-top: 30px;
+
         h2 {
           font-size: 18px;
           margin-bottom: 20px;
         }
       }
+
       .item-version,
       .item-color {
         .phone {
@@ -382,25 +385,31 @@ export default {
           box-sizing: border-box;
           text-align: center;
           cursor: pointer;
+
           span {
             color: #666666;
             margin-left: 15px;
           }
+
           .color {
             display: inline-block;
             width: 14px;
             height: 14px;
             background-color: #666666;
           }
+
           &.checked {
             border: 1px solid #ff6600;
             color: #ff6600;
           }
         }
-        .disabled{
+
+        .disabled {
           color: #b0b0b0;
-          cursor: auto;}
+          cursor: auto;
+        }
       }
+
       .item-total {
         height: 108px;
         background: #fafafa;
@@ -409,6 +418,7 @@ export default {
         margin-top: 50px;
         margin-bottom: 30px;
         box-sizing: border-box;
+
         .phone-total {
           font-size: 24px;
           color: #ff6600;
@@ -417,10 +427,12 @@ export default {
       }
     }
   }
+
   .price-info {
     text-align: center;
     background-color: #f3f3f3;
     height: auto;
+
     h2 {
       font-size: 24px;
       color: #333333;
@@ -429,6 +441,7 @@ export default {
       border-bottom: coral 2px solid;
       line-height: 50px;
     }
+
     .attributes-list {
       width: 749px;
       display: block;
@@ -436,6 +449,7 @@ export default {
       margin: 20px auto;
       min-height: 50px;
       text-align: left;
+
       li {
         display: inline;
         float: left;
